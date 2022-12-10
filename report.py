@@ -27,7 +27,8 @@ def сsv_chuncker(file_name):
                 csvs[year] = []
             csvs[year].append(row)
     for vacancy in csvs:
-        save_as_csv(vacancy, csvs[vacancy], fields)
+        if len(csvs) > 0:
+            save_as_csv(vacancy, csvs[vacancy], fields)
 
 file_name = input("Введите название файла: ")
 сsv_chuncker(file_name)
