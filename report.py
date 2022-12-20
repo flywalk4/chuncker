@@ -1,6 +1,5 @@
 def write_chunk(file_name, lines):
     """Сохраняет файл в виде csv файла 
-
         Args:
             file_name (str): Название файла
             fields (str): Поля csv файла
@@ -12,21 +11,19 @@ def write_chunk(file_name, lines):
         f_out.close()
 
 def сsv_chuncker(file_name):
-    csvs = {}
-    with open(file_name, 'r', encoding="utf-8-sig") as File:
-        names = File.readline()
-        for string in File:
-            year = string.split(",")[len(string.split(",")) - 1][0:4]
-            if(year in csvs.keys()):
-                csvs[year].append(string)
-            else: 
-                csvs[year] = list(names)
+    dictionary = {}
+    with open(file_name, 'r', encoding="utf-8-sig") as f:
+        header = f.readline()
+        for x in f:
+            listLine = x.split(",")
+            year = listLine[-1].split('-')[0]
+            if (year in dictionary.keys()):
+                dictionary[year].append(x)
+            else:
+                dictionary[year] = [x]
 
-        if len(csvs) > 0:
-            year = 2007
-            for year in csvs:
-                write_chunk(str(year), csvs[year])
-                year += 1
+        for data in dictionary:
+            write_chunk(data, dictionary[data])
 
 file_name = input("Введите название файла: ")
 сsv_chuncker(file_name)
