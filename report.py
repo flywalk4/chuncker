@@ -1,4 +1,4 @@
-def write_chunk(file_name, lines):
+def write_chunk(file_name, lines, header):
     """Сохраняет файл в виде csv файла 
         Args:
             file_name (str): Название файла
@@ -7,6 +7,7 @@ def write_chunk(file_name, lines):
     """
     print("Saving", file_name)
     with open('csv//vacancies_'+ file_name +'.csv', 'w', encoding="utf-8-sig") as f_out:
+        f_out.write(header)
         f_out.writelines(lines)
         f_out.close()
 
@@ -23,7 +24,6 @@ def сsv_chuncker(file_name):
                 dictionary[year] = [x]
 
         for data in dictionary:
-            write_chunk(data, dictionary[data])
-
+            write_chunk(data, dictionary[data], header)
 file_name = input("Введите название файла: ")
 сsv_chuncker(file_name)
